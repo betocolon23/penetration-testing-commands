@@ -19,6 +19,18 @@ To change wireless adapter into monitor mode. Monitor mode allows us to sniff pa
 ```bash
 iwconfig wlan0 mode monitor
 ```
+## Other commands
+1. zip a file: `tar czvf <filename>`
+2. unzip file: `tar xzvf <filename>`
+3. network info: `netstat`
+4. last user logged in the system: `last`
+5. who is logged in: `who` or `w`: 
+6. network downloader: `wget <url-link>`
+7. change permission: `chmod`
+8. send file to a remote computer: `scp /path/to/file username@remoteIP:~/path/to/file`
+9. From remote server to local computer: `scp username@remoteIP:~/path/to/file /path/to/file` 
+
+
 
 ## Preconnection Attack: Airodump-ng
 
