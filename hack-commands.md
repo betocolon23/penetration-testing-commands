@@ -16,6 +16,8 @@ Useful commands in Kali Linux for penetration testing and ethical hacking
 10. View information about your own device: `ifconfig`
 11. Veiw information about wireless interfaces: `iwconfig`
 12. Change wireless adapter into monitor mode: `iwconfig <InterfaceName> mode monitor`
+13. Shows routers: `route -n`
+14. Scan connected devices in the network: `nmap -sP 192.168.1.1/24`
 
 
 
@@ -149,6 +151,11 @@ mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --inje
 ```
 ```bash
 mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface> --inject --js-file </path/to/jsfile>
+```
+
+## MITMf Upsidedownternet
+```bash 
+mitmf --arp --spoof --hsts --gateway <routerIP> --target <targetIP> -i <interface> --upsidedownternet
 ```
 
 **NOTE: if working in real network:**
