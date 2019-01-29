@@ -173,6 +173,26 @@ mitmf --arp --spoof --hsts --gateway <routerIP> --target <targetIP> -i <interfac
 5. start fake AP: `bash /usr/share/mana-toolkit/run-mana/start-nat-simple.sh`
 6. Test it with phone or other machine, NOT host machine. 
 
+## NMAP Basics
+
+Scan a single IP	`nmap 192.168.1.1`
+Scan a host	`nmap www.testhostname.com`
+Scan a range of IPs	`nmap 192.168.1.1-20`
+Scan a subnet	`nmap 192.168.1.0/24`
+
+### Port Selection
+Scan a single Port	`nmap -p 22 192.168.1.1`
+Scan a range of ports	`nmap -p 1-100 192.168.1.1`
+Scan 100 most common ports (Fast)	`nmap -F 192.168.1.1`
+Scan all 65535 ports	`nmap -p- 192.168.1.1`
+
+### Service and OS Detection
+Detect OS and Services	`nmap -A 192.168.1.1`
+Standard service detection	`nmap -sV 192.168.1.1`
+More aggressive Service Detection	`nmap -sV --version-intensity 5 192.168.1.1`
+Lighter banner grabbing detection	`nmap -sV --version-intensity 0 192.168.1.1`
+
+
 ## Brutespray 
 
 1. nmap the network with: `nmap -sS -sV 10.0.2.0/24 -vv -n -oA test`
